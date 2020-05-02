@@ -168,12 +168,12 @@ covariance(num_friends, daily_minutes) # 22.43
 (perfect correlation).
 ```python
 def correlation(x, y):
-stdev_x = standard_deviation(x)
-stdev_y = standard_deviation(y)
-if stdev_x > 0 and stdev_y > 0:
-return covariance(x, y) / stdev_x / stdev_y
-else:
-return 0 # if no variation, correlation is zero
+    stdev_x = standard_deviation(x)
+    stdev_y = standard_deviation(y)
+    if stdev_x > 0 and stdev_y > 0:
+        return covariance(x, y) / stdev_x / stdev_y
+    else:
+        return 0 # if no variation, correlation is zero
 ```
 
 ##### standard deviation
@@ -182,3 +182,22 @@ def standard_deviation(x):
 return math.sqrt(variance(x))
 standard_deviation(num_friends) # 9.03
 ```
+### Chapter 06
+#### Conditional Probability
+>When two events E and F are independent, then by definition we have:
+>P( E, F) = P(E)P(F)
+
+>If they are not necessarily independent (and if the probability of F is not zero), then we
+define the probability of E “conditional on F” as:
+
+> 1)  P( E | F) = P(E, F) / P(F)
+
+>  We often rewrite this as
+
+> 2) P(E , F) = P( E | F ) P(F)
+
+>When E and F are independent, you can check that this gives:
+
+>   P( E | F) = P(E)
+
+
