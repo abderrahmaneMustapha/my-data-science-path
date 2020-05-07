@@ -275,3 +275,14 @@ return sum(bernoulli_trial(p) for _ in range(n))
 > we’ll	want	to	test	whether	a	certain	hypothesis	is	likely	to	be	true. For	our	purpose
 
 >Whenever	a	random	variable	follows	a	normal	distribution,	we	can	use	normal_cdf	to figure	out	the	probability	that	its	realized	value	lies	within	(or	outside)	a	particular interval
+
+
+#### Confidence Intervals
+> We’ve been testing hypotheses about the value of the heads probability p, which is a
+parameter of the unknown “heads” distribution. When this is the case, a third approach is
+to construct a confidence interval around the observed value of the parameter.
+
+#### P-hacking
+>What this means is that if you’re setting out to find “significant” results, you usually can.
+Test enough hypotheses against your data set, and one of them will almost certainly appear
+significant. Remove the right outliers, and you can probably get your p value below 0.05.
