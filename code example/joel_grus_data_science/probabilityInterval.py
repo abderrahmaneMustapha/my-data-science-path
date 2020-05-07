@@ -1,6 +1,7 @@
 from normalcdf import normal_cdf
 from cdfInverse import inverse_normal_cdf
 import math
+import random
 
 def	normal_approximation_to_binomial(n,	p):				
     """finds	mu	and	sigma	corresponding	to	a	Binomial(n,	p)"""				
@@ -57,4 +58,19 @@ mu_1, sigma_1 = normal_approximation_to_binomial(1000, 0.55)
 
 type_2_probability = normal_probability_between(lo, hi, mu_1, sigma_1)
 power = 1 -  type_2_probability
+
+def two_sided_p_value(x, mu=0, sigma=1):
+    if x >= mu : 
+        return 2 * normal_probability_above(x, mu, sigma)
+    else:
+        return 2 * normal_probability_above(x, mu, sigma)
+
+# simulation to make sure that two two_sided_p_value(529.5) work well
+extreme_value_count = 0
+for _ in range(100000):
+    num_heads = sum( 1 if random.random() < 0.5  else 0 
+                    for _ in range(1000))
+    if num_heads >= 530 or num_heads <= 470:
+        extreme_value_count+=1
+print( extreme_value_count / 100000)
 

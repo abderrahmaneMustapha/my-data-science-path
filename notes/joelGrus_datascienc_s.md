@@ -200,4 +200,78 @@ define the probability of E “conditional on F” as:
 
 >   P( E | F) = P(E)
 
+##### Bayes’s Theorem
+> P (E | F) = P( E, F) / P(F) = P(F | E) P(E) / P(F)
 
+>the event F can be split into:
+
+>P(F) = P(F | E) + P(F | non E)
+
+>so that:
+
+> P (E | F) P(F | E) P(E) / [ P(F | E ) P(E)  +  P(F | non E) P(non E)]
+
+##### More 
+> dont forget about continues distribution and the random one
+
+>Normal distribution is important too  :  sigma is where bell is centerred and mu is the mean (how wide)
+```python
+def normal_pdf(x, mu=0, sigma=1):
+sqrt_two_pi = math.sqrt(2 * math.pi)
+return (math.exp(-(x-mu) ** 2 / 2 / sigma ** 2) / (sqrt_two_pi * sigma))
+
+```
+
+> when mu = 0  and sigma = 1 its called the standar normal distribution
+
+```python
+X = sigma Z + mu
+so that :
+Z = (X - mu ) / sigma
+```
+> find the value corresponding to a specified probability by doing a 
+binary search beacause we can not calculate cdf fucntion inverse
+
+```python 
+def inverse_normal_cdf(p, mu=0, sigma=1, tolerance=0.00001):
+"""find approximate inverse using binary search"""
+# if not standard, compute standard and rescale
+if mu != 0 or sigma != 1:
+return mu + sigma * inverse_normal_cdf(p, tolerance=tolerance)
+low_z, low_p = -10.0, 0 # normal_cdf(-10) is (very close to) 0
+hi_z, hi_p = 10.0, 1 # normal_cdf(10) is (very close to) 1
+while hi_z - low_z > tolerance:
+mid_z = (low_z + hi_z) / 2 # consider the midpoint
+mid_p = normal_cdf(mid_z) # and the cdf's value there
+if mid_p < p:
+# midpoint is still too low, search above it
+low_z, low_p = mid_z, mid_p
+elif mid_p > p:
+# midpoint is still too high, search below it
+hi_z, hi_p = mid_z, mid_p
+else:
+break
+return mid_z
+```
+
+##### The Central Limit Theorem
+> a random variable defined as the average of a large number of independent
+and identically distributed random variables is itself approximately normally distributed :
+with mean 0 and standard deviation 1.
+
+> Binomial(n,p) random variable  : is a sum of "n"  independent  bernouli(p) variable
+ read more on page 125 about bernouli and binomial and their standar variation and mean
+``` python 
+def bernoulli_trial(p):
+return 1 if random.random() < p else 0
+```
+
+``` python 
+def binomial(n, p):
+return sum(bernoulli_trial(p) for _ in range(n))
+```
+### Chapter 07 
+#### Statistical	Hypothesis	Testing
+> we’ll	want	to	test	whether	a	certain	hypothesis	is	likely	to	be	true. For	our	purpose
+
+>Whenever	a	random	variable	follows	a	normal	distribution,	we	can	use	normal_cdf	to figure	out	the	probability	that	its	realized	value	lies	within	(or	outside)	a	particular interval
