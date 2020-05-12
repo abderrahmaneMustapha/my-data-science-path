@@ -286,3 +286,4 @@ to construct a confidence interval around the observed value of the parameter.
 >What this means is that if you’re setting out to find “significant” results, you usually can.
 Test enough hypotheses against your data set, and one of them will almost certainly appear
 significant. Remove the right outliers, and you can probably get your p value below 0.05.
+
