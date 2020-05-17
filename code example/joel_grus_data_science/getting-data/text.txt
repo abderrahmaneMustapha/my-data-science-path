@@ -1,0 +1,10 @@
+Don't worry. You can fight back. Windows has long offered a way 
+for you to view and disable your startup programs. In older versions
+ of Windows, you’d open the System Configuration tool (msconfig) where you could see and 
+ deselect any programs you wanted to stop loading automatically. That option is no longer available
+  in Windows 10. Instead, you can check out your startup programs in a couple of other ways.
+
+You can go through the Settings screen, where you can see each app, its current status,
+ and the effect if you opt to disable it from starting up automatically. Another option is to go
+  through Task Manager, where you can scour the list of startup programs, research each specific
+  program on the web to learn what it does, and then disable any apps you feel don't need to launch at startup.
