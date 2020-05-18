@@ -26,14 +26,37 @@ app = dash.Dash(__name__,external_stylesheets=external_stylesheets)
 
 #app layout
 app.layout = html.Div(children=[
+    # earth graph
+    html.Div(children=[
 
-  dcc.Graph(
-            id='scatter-graph',
-            className="col-md-9",
-            figure = earth()
-                        
-                        )  
-], id="test")
+        #earth graph
+        dcc.Graph(
+            id='earth-graph',
+            className="col-md-8",
+            figure = earth() ,
+            config={
+        'displayModeBar': False
+                }                       
+        ),
+        #end of earth graph
+
+        #cities for each country
+         html.Div(
+            id='country-graph',
+            className="col-md-3",
+            children=[
+                #cities list
+                html.Ul(children=[])
+                #end of cities list
+            ]
+         )
+        # end of cities for each country
+
+    ], className="row")   
+     # end of earth graph  
+], className="container-fluid")
+#end app layout
+
 
 
 if __name__ == '__main__':
