@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output, State
 #python imports
 
 #my fucntion imports
-from data import earth_data
+from graphs import earth 
 
 #static files
 external_stylesheets = [
@@ -22,11 +22,17 @@ external_stylesheets = [
 #init the app and server
 app = dash.Dash()
 app = dash.Dash(__name__,external_stylesheets=external_stylesheets)
-server = app.server
+#server = app.server
 
 #app layout
 app.layout = html.Div(children=[
-earth_data()
+
+  dcc.Graph(
+            id='scatter-graph',
+            className="col-md-9",
+            figure = earth()
+                        
+                        )  
 ], id="test")
 
 
