@@ -1,0 +1,6 @@
+#cities-data {
+    max-height:90vh;
+    overflow-y: auto;
+    padding: auto;
+  margin: 1rem 0rem 1rem 0rem;
+}

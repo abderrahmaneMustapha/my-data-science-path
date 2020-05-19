@@ -23,9 +23,10 @@ def open_csv(file_path):
     return result
 
 def search_country_csv(data,query):
-   
+    
+    data = data.set_index('country_code')
 
-    return data.query('country_code =='+query)
+    return data.loc[tuple([query]), :].reset_index()
 
 
 

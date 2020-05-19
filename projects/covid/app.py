@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output, State
 #python imports
 
 #my fucntion imports
-from graphs import earth 
+from graphs import earth,country
 
 #static files
 external_stylesheets = [
@@ -46,7 +46,11 @@ app.layout = html.Div(children=[
             className="col-md-3",
             children=[
                 #cities list
-                html.Ul(children=[])
+                html.Ul(children=[
+                    
+                      html.Li(children=[city['location']], className="list-group-item") for _ , city in country().iterrows()
+                ]
+                ,className="list-group", id="cities-data")
                 #end of cities list
             ]
          )

@@ -27,6 +27,6 @@ def earth():
 
     return fig
 
-def countrys(name="dz"):
-    cities_list  = search_country_csv(open_csv('data/cities'))
+def country(name="dz"):
+    cities_list  = search_country_csv(open_csv('data/cities.csv'), name)
     return cities_list 
