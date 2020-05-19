@@ -17,17 +17,19 @@ def country_data():
     provinces.to_csv('data/cities.csv', sep=',', )
     return provinces
 
+def get_country_data(country="algeria", statu="confirmed"):
+    data = pd.DataFrame(requests.get('https://api.covid19api.com/dayone/country/'+country+'/status/'+statu).json())
+    
+    return data
+
 def open_csv(file_path):
     result = pd.read_csv(file_path)
-
     return result
 
 def search_country_csv(data,query):
-    
     data = data.set_index('country_code')
-
     return data.loc[tuple([query]), :].reset_index()
 
 
 
-    
+

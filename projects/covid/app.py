@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output, State
 #python imports
 
 #my fucntion imports
-from graphs import earth,country
+from graphs import earth,country,big_graph
 
 #static files
 external_stylesheets = [
@@ -42,26 +42,102 @@ app.layout = html.Div(children=[
 
         #cities for each country
          html.Div(
-            id='country-graph',
+            
             className="col-md-3",
             children=[
                 #cities list
                 html.Ul(children=[
-                    
-                      html.Li(children=[city['location']], className="list-group-item") for _ , city in country().iterrows()
-                ]
+                    html.Li(children=[
+                        #add info to the side bar
+                        city['location'],
+                        #order last
+                        html.Div(children=[
+                        # data containers
+                            html.Div(children=[ 
+                                html.P(children="Total",className="small-text"),
+                                html.Span(children=city['confirmed'], className="badge badge-warning"),
+                            ],  className="ml-1 mr-1 d-flex flex-column align-items-center"),
+                            html.Div(children=[
+                                html.P(children="Deaths",className="small-text"),
+                                html.Span(children=city['dead'], className="badge badge-danger"),
+                                ],className="ml-1 mr-1 d-flex flex-column align-items-center"),
+                            html.Div(children=[
+                                html.P(children="Recovered",className="small-text"), 
+                                html.Span(children=city['recovered'], className="badge badge-success")
+                            ],className="ml-1 mr-1 d-flex flex-column align-items-center"),
+                        #end of data containers                    
+                    ], className="d-flex flex-row justify-content-between align-items-center")
+                ], className="list-group-item d-flex flex-column justify-content-center align-items-center") for _ , city in country().iterrows()]
+                
                 ,className="list-group", id="cities-data")
                 #end of cities list
             ]
          )
         # end of cities for each country
 
-    ], className="row")   
+    ], className="row")  , 
      # end of earth graph  
+     #big graph
+     html.Div(children=[
+         dcc.Graph(
+            id='big-graph',
+            className="col-md-12",
+            figure = big_graph() ,
+            config={
+        'displayModeBar': False
+                }                       
+        ),
+     ])
+     #end big graph
 ], className="container-fluid")
 #end app layout
 
+################# CALL BACKS °°°°°°°°°°°°°°°°°°°°°°°°°°
 
+#update sidbar onclick
 
+#side bar call back start
+@app.callback(
+    Output('cities-data', 'children'),
+    [Input('earth-graph', 'clickData')])
+def display_hover_data(clickData):
+    name = clickData['points'][0]['customdata'][0] #get country name
+    return  [html.Li(children=[
+             #add info to the side bar
+              city['location'],
+              #order last
+              html.Div(children=[
+
+                    # data containers
+                    html.Div(children=[ 
+                        html.P(children="Total", className="small-text"),
+                        html.Span(children=city['confirmed'], className="badge badge-warning"),
+                    ],className="ml-1 mr-1 d-flex flex-column align-items-center" ),
+                    html.Div(children=[
+                        html.P(children="Deaths", className="small-text"),
+                        html.Span(children=city['dead'], className="badge badge-danger"),
+                        ],className="ml-1 mr-1 d-flex flex-column align-items-center"),
+                    html.Div(children=[
+                        html.P(children="Recovered", className="small-text"), 
+                        html.Span(children=city['recovered'], className="badge badge-success")
+                    ],className="ml-1 mr-1 d-flex flex-column align-items-center"),
+                    #end of data containers
+                   
+                ], className="d-flex flex-row justify-content-between align-items-center")
+              
+
+            ], className="list-group-item d-flex flex-column justify-content-center align-items-center") for _ , city in country(name).iterrows()]
+#side bar call back end
+
+#big line chart  call back start
+@app.callback(
+    Output('big-graph', 'figure'),
+    [Input('earth-graph', 'clickData')]
+)
+def update_big_line_chart(clickData):
+    country = clickData['points'][0]['customdata'][8]
+    return big_graph(country=country)
+
+#big line chart  call back end
 if __name__ == '__main__':
     app.run_server(debug=True)
