@@ -8,7 +8,7 @@ from dash.dependencies import Input, Output, State
 
 #my fucntion imports
 from graphs import earth,country,big_graph
-
+from data import earth_data,country_data
 #static files
 external_stylesheets = [
     {
@@ -26,6 +26,23 @@ app = dash.Dash(__name__,external_stylesheets=external_stylesheets)
 
 #app layout
 app.layout = html.Div(children=[
+    ####intervals
+
+    ## we need to sperate the countries file update 
+    # and cities file update
+    dcc.Interval(
+            id='interval-update-countries-csv',
+            interval=1*86400000, # one day in milliseconds
+    ),
+    dcc.Interval(
+            id='interval-update-cties-csv',
+            interval=1*86600000, #a few minutes more than one day   in milliseconds
+    ),
+
+    #hidden div to update my cities csv file because i cant use callback with no output
+    html.Div(children=[],style= {'visibility': 'hidden'}, id="cities-csv-update"), 
+
+    ####intervals end
     # earth graph
     html.Div(children=[
 
@@ -137,7 +154,24 @@ def display_hover_data(clickData):
 def update_big_line_chart(clickData):
     country = clickData['points'][0]['customdata'][8]
     return big_graph(country=country)
-
 #big line chart  call back end
+
+#interval callback start
+#update the map csv file
+
+@app.callback(Output('earth-graph', 'figure'),
+              [Input('interval-component', 'n_intervals')])
+
+def update_earth_graph(n):
+    return    earth(df=earth_data())
+
+@app.callback(Output('cities-csv-update', 'children'),
+              [Input('interval-component', 'n_intervals')])
+
+def update_cities_csv(n):
+    country_data()
+    return    0
+#interval callback end 
+
 if __name__ == '__main__':
     app.run_server(debug=True)

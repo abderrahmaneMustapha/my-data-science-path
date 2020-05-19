@@ -8,13 +8,13 @@ def earth_data():
 
     data = requests.get('https://api.covid19api.com/summary')
     countries = pd.DataFrame(data.json()['Countries'])
-    countries.to_csv('data/countries.csv', sep=',', )
+    countries.to_csv('data/countries.csv', sep=',' )
     return countries
 
 def country_data():
     data = requests.get('https://www.trackcorona.live/api/cities')
     provinces = pd.DataFrame(data.json()['data'])
-    provinces.to_csv('data/cities.csv', sep=',', )
+    provinces.to_csv('data/cities.csv', sep=',' )
     return provinces
 
 def get_country_data(country="algeria", statu="confirmed"):

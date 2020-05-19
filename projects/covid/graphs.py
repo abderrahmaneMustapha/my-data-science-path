@@ -6,9 +6,8 @@ import plotly.express as px
 #my python code
 from data import open_csv,country_data,search_country_csv,get_country_data
 
-def earth():
+def earth(df=open_csv("data/countries.csv")):
     
-    df = open_csv("data/countries.csv")
     fig = px.choropleth( df, locations="Country",
                         color="TotalConfirmed", 
                         hover_name="Country", 
