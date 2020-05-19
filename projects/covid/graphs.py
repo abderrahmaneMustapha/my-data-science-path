@@ -29,7 +29,7 @@ def earth(df=open_csv("data/countries.csv")):
 def country(name="dz"):
 
     cities_list  = search_country_csv(open_csv('data/cities.csv'), name.lower())
-    return cities_list 
+    return cities_list.sort_values(by='confirmed', ascending=False)
 
 # return the big line graph figure
 def big_graph(country="algeria"):

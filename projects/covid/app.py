@@ -22,14 +22,14 @@ external_stylesheets = [
 #init the app and server
 app = dash.Dash()
 app = dash.Dash(__name__,external_stylesheets=external_stylesheets)
-#server = app.server
+server = app.server
 
 #app layout
 app.layout = html.Div(children=[
     ####intervals
 
     ## we need to sperate the countries file update 
-    # and cities file update
+    # and citys file update because we are dealing with a large data
     dcc.Interval(
             id='interval-update-countries-csv',
             interval=1*86400000, # one day in milliseconds
@@ -60,9 +60,10 @@ app.layout = html.Div(children=[
         #cities for each country
          html.Div(
             
-            className="col-md-3",
+            className="col-md-3 row",
             children=[
                 #cities list
+            html.H4(children="Algeria Citys", id="citys-title", className="col-12 text-center"),
                 html.Ul(children=[
                     html.Li(children=[
                         #add info to the side bar
@@ -146,6 +147,15 @@ def display_hover_data(clickData):
             ], className="list-group-item d-flex flex-column justify-content-center align-items-center") for _ , city in country(name).iterrows()]
 #side bar call back end
 
+#update sidebar title start
+@app.callback(
+    Output('citys-title', 'children'),
+    [Input('earth-graph', 'clickData')])
+def update_citys_title(data):
+
+    return  data['points'][0]['location'] + " Citys"
+#update sidebar title end
+
 #big line chart  call back start
 @app.callback(
     Output('big-graph', 'figure'),
@@ -160,13 +170,13 @@ def update_big_line_chart(clickData):
 #update the map csv file
 
 @app.callback(Output('earth-graph', 'figure'),
-              [Input('interval-component', 'n_intervals')])
+              [Input('interval-update-countries-csv', 'n_intervals')])
 
 def update_earth_graph(n):
     return    earth(df=earth_data())
 
 @app.callback(Output('cities-csv-update', 'children'),
-              [Input('interval-component', 'n_intervals')])
+              [Input('interval-update-cties-csv', 'n_intervals')])
 
 def update_cities_csv(n):
     country_data()
@@ -174,4 +184,4 @@ def update_cities_csv(n):
 #interval callback end 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
