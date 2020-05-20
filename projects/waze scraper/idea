@@ -1,0 +1,6 @@
+Scrap/extract data of car accidents from waze web map. This data will be used for an ios app we building to show accidents updates in real-time (every 5 seconds) and notify our app users on the car accidents location and time they were reported at. Price (budget) will be agreed upon when a candidate is chosen. The $4000 is just for illustration purpose.
+
+Data need to refresh every 5 seconds
+for now just data extraction from the website needed, Building API around the data might be required as well later.
+
+Data Extraction only for car accidents and only for Canada and the us at the moment

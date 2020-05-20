@@ -1,0 +1,43 @@
+
+This is a very simple task for someone who has past experience in data scrapping.
+
+I need a solution to scrape data from amazon.in
+
+Basically what I need is a robust solution to scrape brand-wise data
+
+For ex.
+Here are few examples of different types of brand pages.
+Brand page can be found by clicking this link of any product : https://take.ms/WlO6q2
+
+Brand page example 1:
+https://www.amazon.in/stores/page/4C698EC7-877F-4527-8E33-0EA13DC2C02A?ingress=2&visitId=16e77314-e7f4-4714-8fce-5a25f170912b&ref_=ast_bln
+
+Example 2:
+https://www.amazon.in/stores/page/AA1A8841-2494-4935-B9B4-1B0A18DD0715?ingress=2&visitId=4d1d69ab-a3e0-4199-8be7-5f9bf75c2752&ref_=ast_bln
+
+Example 3:
+https://www.amazon.in/stores/page/936A8D0A-F7ED-49FE-909D-065BCFB9B340?store_ref=SB_A00393519PBF18UZ9FNN&pf_rd_p=b4cc5800-8875-4c20-b1bd-0f22edd01388&aaxitk=aFqPi3LTk-.AS6fDi0XNmA&hsa_cr_id=1204450400402&lp_mat_key=lifeboy&lp_query=lifeboy&lp_slot=auto-sparkle-hsa-tetris&ref_=sb_s_sparkle&productGridPageIndex=1
+
+I need to find the following details of each products which has 'add to cart' or 'see buying option' or similar option on the above example links.
+
+- product page link
+- price
+- description
+- image urls
+- category
+
+All these data needs to be exported in csv file
+
+Here is the link of a scrapper. You are free to use a better scrapper.
+https://github.com/Chhekur/amazon-scraper
+
+Other useful links:
+https://www.scrapehero.com/tutorial-how-to-scrape-amazon-product-details-using-python-and-selectorlib/
+
+https://www.scrapehero.com/how-to-rotate-proxies-and-ip-addresses-using-python-3/
+
+Solution should be made in such a way that ip is not blocked by amazon. you can refer above links for the same.
+
+Kindly provide some previous scrapping work examples
+
+feel free to let me know if you have better solution for this task.

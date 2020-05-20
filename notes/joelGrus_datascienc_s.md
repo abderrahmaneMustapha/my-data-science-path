@@ -290,3 +290,26 @@ significant. Remove the right outliers, and you can probably get your p value be
 ### Chapter 8 : Gradient descent
 > Gradient descent is a first-order iterative optimization algorithm for finding a local minimum of a differentiable function. To find a local minimum of a function using gradient descent, we take steps proportional to the negative of the gradient of the function at the current point
 
+### Chapter 9: Getting Data
+> this how can we execute many python scripts in one time
+``` shell
+type SomeFile.txt | egrep.py "[0-9]" | line_count.py
+```
+
+> you can use html5lib as parser when scarpping the web
+
+
+> example if you want find all the span in a div with beatifuk soup you can use this
+
+```python
+spans_inside_divs = [span
+                    for div in soup('div')
+                    for span in div('span')]
+```
+
+> if you want explore the twitter api use twython 
+```shell
+pip install twython
+```
+
+> use scarapy contain more toold than beatiful soup
