@@ -50,19 +50,21 @@ class AmazonSpider(scrapy.Spider):
         description= ' '.join(response.xpath('//span[@id="productTitle"]/text()').get().split())
         
         #image link 
-        image_link =  response.xpath('//div[@id="ivLargeImage"]//img//@src').get()
+        #image_link =  response.xpath('//img[@id="landingImage"]/@src').get().replace(",", "\,")
 
         #link
         link = response.url
         
         self.data_dict.append({"name" : name ,  "brand" : brand, "price" : price,
                         "rating" : rate, "total_rating":total_rate, "description": description, 
-                        "image_link":image_link, 'link':  link
+                        #"image_link":image_link, 
+                         'link':  link
                          })
                                   
         df = pd.DataFrame(self.data_dict,columns=['name', 'brand','price', 'rating', 'total_ratings', 
-                                  'description', 'image_link', 'link'])
-        print(self.data_dict)
+                                  'description', #'image_link', 
+                                  'link'])
+        
         df.to_csv('my_csv.csv')
        
        
