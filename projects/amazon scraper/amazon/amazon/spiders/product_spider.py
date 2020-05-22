@@ -16,12 +16,9 @@ class AmazonSpider(scrapy.Spider):
         for urls in root_url:
             yield scrapy.Request(url=urls, callback=self.parse)
         for f in open("urls.txt", "r").readlines():
-            yield scrapy.Request(url=str(f), callback=self.get_data)
+            yield scrapy.Request(url=f, callback=self.get_data)
         
-        df = pd.DataFrame(self.data_dict,columns=['name', 'brand','price', 'rating', 'total_ratings', 
-                                  'description', 'image_link', 'link'])
-        print(self.data_dict)
-        df.to_csv('my_csv.csv')
+      
     def parse(self, response):
         page = response.url.split("/")[-2]
         filename = 'urls.txt'
@@ -53,7 +50,7 @@ class AmazonSpider(scrapy.Spider):
         description= ' '.join(response.xpath('//span[@id="productTitle"]/text()').get().split())
         
         #image link 
-        image_link =  response.xpath('//img[@id="landingImage"]/@src').get()
+        image_link =  response.xpath('//div[@id="ivLargeImage"]//img//@src').get()
 
         #link
         link = response.url
@@ -62,6 +59,11 @@ class AmazonSpider(scrapy.Spider):
                         "rating" : rate, "total_rating":total_rate, "description": description, 
                         "image_link":image_link, 'link':  link
                          })
+                                  
+        df = pd.DataFrame(self.data_dict,columns=['name', 'brand','price', 'rating', 'total_ratings', 
+                                  'description', 'image_link', 'link'])
+        print(self.data_dict)
+        df.to_csv('my_csv.csv')
        
        
 
